@@ -28,8 +28,13 @@ decryption(){
 }
 
 case "$1" in
-	"encrypt") encryption ;;
-	"decrypt") decryption ;;
-	*) echo "Invalid option. Options available are encrypt and decrypt." 
+	"encrypt")
+	       	encryption
+	 ;;
+	"decrypt")
+	       	decryption
+	 ;;
+	 *)
+	       	echo "Invalid option. Options available are encrypt and decrypt." 
 esac
 
