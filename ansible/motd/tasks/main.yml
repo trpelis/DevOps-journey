@@ -1,0 +1,14 @@
+---
+# tasks file for motd
+- name: Update
+  hosts: mentoring_hosts
+  remote_user: trpimir
+  become: true
+
+  tasks:
+  - name: Update /etc/motd
+    template:
+      src: /home/trajevskij/mentoring/ansible/motd/templates/motd.j2
+      dest: /etc/motd
+    
+
