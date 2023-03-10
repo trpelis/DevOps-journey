@@ -1,0 +1,9 @@
+---
+#playbook for NTP 
+
+- name: Install and configure NTP
+  hosts: all
+  become: yes
+
+  roles:
+    - ntp

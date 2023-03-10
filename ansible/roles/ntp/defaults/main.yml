@@ -1,0 +1,5 @@
+---
+#defaults for ntp
+
+
+ntp_server: 129.6.15.32
