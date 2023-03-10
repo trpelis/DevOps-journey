@@ -1,0 +1,5 @@
+---
+- name: Manage users playbook
+  hosts: all
+  roles:
+    - role: user_mgmt

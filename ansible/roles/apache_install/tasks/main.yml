@@ -1,0 +1,21 @@
+---
+# tasks file for apache_install
+
+- name: Install Apache
+  become: true
+  dnf:
+    name: httpd
+    state: latest
+
+- name: Enable Apache services
+  become: true
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Set default landing page
+  become: true
+  template: 
+  src: index.html.j2
+  dest: /var/www/html/index.html
