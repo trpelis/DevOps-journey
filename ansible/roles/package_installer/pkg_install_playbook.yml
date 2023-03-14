@@ -1,0 +1,11 @@
+---
+
+- name: Installing packages on remotes
+  hosts: all
+  roles:
+    - role: package_installer
+      package_list:
+        - git
+        - vlc
+        - google-chrome
+      become: true

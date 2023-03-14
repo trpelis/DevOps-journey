@@ -1,0 +1,8 @@
+---
+# defaults file for package_installer
+
+package_list:
+  - git
+  - vlc
+  - google-chrome
+
