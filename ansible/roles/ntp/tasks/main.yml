@@ -1,0 +1,21 @@
+---
+# tasks file for ntp
+
+- name: Install NTPsec package
+  dnf:
+    name: ntp
+    state: present
+
+- name: Configure NTPsec server address
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Start NTPsec service
+  service:
+    name: ntpd
+    state: started
+    enabled: true
