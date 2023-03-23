@@ -1,0 +1,12 @@
+- name: installing monitor stack
+  hosts: mentoring_hosts
+  become: yes
+  roles:
+    - prometheus
+    - grafana
+
+- name: install node-exporter
+  hosts: mentoring_hosts
+  become: yes
+  roles:
+    - node_exporter

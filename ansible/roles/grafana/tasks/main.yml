@@ -14,4 +14,31 @@
     validate_certs: no
 
 - name: add repository
+  dnf:
+    name: "https://packages.grafana.com/oss/rpm"
+    state: present
 
+- name: intall grafana
+  dnf:
+    name: grafana
+    state: latest
+
+- name: start service grafana-server
+  systemd:
+    name: grafana-server
+    state: started
+    enabled: yes
+
+- name: wait for service up
+  uri:
+    url: "http://localhost:3000"
+    status_code: 200
+  register: __result
+  until: __result.status == 200
+  retries: 60
+  delay: 1
+
+- name: change admin password for grafana ui
+  shell: "grafana-cli admin reset-admin-pasword {{ grafana_admin_password }}"
+  register: __command_admin
+  changed_when: __command_admin.rc != 0
