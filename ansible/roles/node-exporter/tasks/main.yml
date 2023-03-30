@@ -1,16 +1,16 @@
 ---
-# tasks file for node_exporter
+# tasks file for node-exporter
 
-- name: check if node exporter exists
+- name: check does node-exp exists
   stat:
-    path: "{{ node_exporter_bin}}"
+    path: "{{ node_exporter_bin }}"
   register: __check_node_exporter_present
 
 - name: create node exporter user
   user:
     name: "{{ node_exporter_user }}"
     append: true
-    shell: /usr/bin/nologin
+    shell: /usr/sbin/nologin
     system: true
     create_home: false
 
@@ -19,22 +19,22 @@
     path: "{{ node_exporter_dir_conf }}"
     state: directory
     owner: "{{ node_exporter_user }}"
-    group: "{{ node_exporter_group}}"
+    group: "{{ node_exporter_group }}"
 
-- name: if node exporter exists, get version
-  shell: "cat /etc/systemd/system/node_exporter.service | grep Version | sed s/'.*Version '//g"
+- name: get version if exists
+  shell: "cat /etc/systemd/system/node_exporter.service | grep Version | serd s/'.*Version '//g"
   when: __check_node_exporter_present.stat.exists == true
   changed_when: false
   register: __get_node_exporter_version
 
-- name: download and unzip node exporter
+- name: download and unzip if its nonexistent
   unarchive:
     src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
     dest: /tmp/
     remote_src: yes
     validate_certs: no
 
-- name: move bin file to final destination
+- name: move the bin file
   copy:
     src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter"
     dest: "{{ node_exporter_bin }}"
@@ -44,7 +44,7 @@
     remote_src: yes
   when: __check_node_exporter_present.stat.exists == false or not __get_node_exporter_version.stdout == node_exporter_version
 
-- name: clean
+- name: clean 
   file:
     path: /tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/
     state: absent
@@ -59,8 +59,12 @@
   notify: reload_daemon_and_restart_node_exporter
 
 - meta: flush_handlers
+
 - name: service always started
   systemd:
     name: node_exporter
     state: started
     enabled: yes
+
+
+

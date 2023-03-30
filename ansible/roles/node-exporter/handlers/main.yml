@@ -1,7 +1,7 @@
 ---
-# handlers file for node_exporter
+# handlers file for node-exporter
 
-- name: reload_daemon_and_restar_node_exporter_service
+- name: reload_daemon_and_restart_node-exporter
   systemd:
     name: node_exporter
     state: restarted
