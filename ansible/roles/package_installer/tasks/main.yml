@@ -1,0 +1,10 @@
+---
+# tasks file for package_installer
+
+- name: Installation of various packages
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ package_list }}"
+

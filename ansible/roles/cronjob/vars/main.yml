@@ -1,0 +1,3 @@
+---
+# vars file for cronjob
+zadatak2_path: /home/trajevskij/mentoring/bash/scripts/zadatak2.sh

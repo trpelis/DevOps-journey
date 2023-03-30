@@ -1,0 +1,12 @@
+---
+# tasks file for cronjob
+- name: Runs zadatak2.sh every Wednesday, every 85 minutes
+  cron:
+    name: Run zadatak2.sh
+    minute: 25
+    hour: "*/1"
+    day: "*"
+    month: "*"
+    weekday: "3"
+    user: "{{ ansible_user }}"
+    job: "{{ zadatak2_path }}"
