@@ -1,15 +1,15 @@
 ---
-# handlers file for prometheus
+# handlers file for roles/prometheus
 
 - name: restart_prometheus
   systemd:
     name: prometheus
     state: restarted
-    enabled: ys
+    enabled: yes
     daemon_reload: yes
 
 - name: reload_prometheus
   uri:
-    url: http//localhost:9090/-/reload
+    url: http://localhost:9090/-/reload
     method: POST
     status_code: 200

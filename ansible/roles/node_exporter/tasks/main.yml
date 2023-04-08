@@ -1,7 +1,7 @@
 ---
-# tasks file for node-exporter
+# tasks file for roles/node_exporter
 
-- name: check does node-exp exists
+- name: check if node exporter exists
   stat:
     path: "{{ node_exporter_bin }}"
   register: __check_node_exporter_present
@@ -21,20 +21,20 @@
     owner: "{{ node_exporter_user }}"
     group: "{{ node_exporter_group }}"
 
-- name: get version if exists
-  shell: "cat /etc/systemd/system/node_exporter.service | grep Version | serd s/'.*Version '//g"
+- name: if node exporter exists get ver
+  shell: "cat /etc/systemd/system/node_exporter.service | grep Version | sed s/'.*Version '//g"
   when: __check_node_exporter_present.stat.exists == true
   changed_when: false
   register: __get_node_exporter_version
 
-- name: download and unzip if its nonexistent
+- name: download and unzip node exporter if not exist
   unarchive:
     src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
     dest: /tmp/
     remote_src: yes
     validate_certs: no
 
-- name: move the bin file
+- name: move bin file to final destination
   copy:
     src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter"
     dest: "{{ node_exporter_bin }}"
@@ -44,9 +44,9 @@
     remote_src: yes
   when: __check_node_exporter_present.stat.exists == false or not __get_node_exporter_version.stdout == node_exporter_version
 
-- name: clean 
+- name: clean
   file:
-    path: /tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/
+    path: "/tmp/node_expoert-{{ node_exporter_version }}.linux-amd64/"
     state: absent
 
 - name: install service
@@ -65,6 +65,3 @@
     name: node_exporter
     state: started
     enabled: yes
-
-
-
