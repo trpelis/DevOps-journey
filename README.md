@@ -9,7 +9,7 @@ NTP, cronjobs,  package installations and user management.
 system metrics from them, sent them to my server into Prometheus to stash them. Fetch them out and serve it on various dashboards in Grafana.
 
 
-Things which are not included, but made small project:
+Things which are not included, but made small project to get myself familiar how high availability/load balancing works:
 - made python app to listen on custom port and serve response when reached properly (this one is actually in python folder on GH)
 - put them on 2 VM 
 - configured NGINX as web service
