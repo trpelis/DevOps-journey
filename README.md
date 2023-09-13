@@ -17,4 +17,4 @@ Things which are not included, but made small project to get myself familiar how
 - Keepalived as failover between HAproxy services
 
 
-I also got myself little bit into Docker and Terraform
+I also got myself little bit into Docker.
